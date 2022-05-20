@@ -1,0 +1,8 @@
+select S.score, P.r AS "Rank"
+from Scores S, (
+        select score, ROW_NUMBER() OVER(ORDER BY score desc) AS r
+        from (select distinct score from scores order by score desc) D
+    ) P
+where S.score = P.score 
+order by P.r
+
